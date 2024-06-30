@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="mt-4">City Operations Data</h1>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Real-Time Data</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Air Quality: {{ real_time_data.air_quality }}</li>
+            <li class="list-group-item">Traffic Flow: {{ real_time_data.traffic_flow }}</li>
+            <li class="list-group-item">Energy Consumption: {{ real_time_data.energy_consumption }}</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h3>Machine Learning Prediction</h3>
+        <p>Prediction for resource need: {{ prediction }}</p>
+        <h3>Anomaly Detection</h3>
+        <p>Anomaly Status: {{ 'Anomaly Detected' if anomaly_prediction == -1 else 'Normal' }}</p>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>Reported Issues and Service Requests</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Location</th>
+                    <th>Type</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for issue in issues %}
+                <tr>
+                    <td>{{ issue.description }}</td>
+                    <td>{{ issue.location }}</td>
+                    <td>{{ issue.type }}</td>
+                    <td>{{ issue.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <img src="data:image/png;base64,{{ plot_url }}" alt="Issues by Location">
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>Blockchain Transactions</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Amount</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.sender }}</td>
+                    <td>{{ transaction.receiver }}</td>
+                    <td>{{ transaction.amount }}</td>
+                    <td>{{ transaction.timestamp }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h3>How AI is Used</h3>
+        <p>Our system uses AI to predict resource needs and detect anomalies in city operations, helping to optimize resource allocation and improve service delivery.</p>
+    </div>
+    <div class="col-md-6">
+        <h3>How Blockchain is Used</h3>
+        <p>Blockchain technology is used to ensure transparency and security in recording city transactions and interactions. Each reported issue is securely recorded in our blockchain ledger, making the data tamper-proof and verifiable.</p>
+    </div>
+</div>
+{% endblock %}
